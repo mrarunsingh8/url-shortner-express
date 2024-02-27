@@ -1,0 +1,25 @@
+{
+  "name": "url-shortner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index",
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrarunsingh8/url-shortner.git"
+  },
+  "author": "mrarunsingh8",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrarunsingh8/url-shortner/issues"
+  },
+  "homepage": "https://github.com/mrarunsingh8/url-shortner#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^3.1.0"
+  }
+}
