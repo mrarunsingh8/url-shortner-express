@@ -1,6 +1,6 @@
 import express from "express";
 import UrlModel from "../models/UrlModel.js";
-import { customAlphabet } from "nanoid";
+import { nanoid } from "nanoid";
 
 const UrlController = express.Router();
 
@@ -23,10 +23,15 @@ UrlController.get("/:nanoid", (req, res)=>{
     });
 });
 
-UrlController.post("/", (req, res)=>{
+UrlController.post("/", async(req, res)=>{
     let {url} = req?.body;
-    const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz0123456789', 10);
-    let data = {nanoid: nanoid(6), url};
+    let checkExisting = await UrlModel.findOne({where: {url: url}});
+    if(checkExisting){
+        return res.json({
+            nanoid: checkExisting?.nanoid
+        });
+    }
+    let data = {nanoid: nanoid(10), url};
     UrlModel.create(data).then(result=>{
         return res.json({
             nanoid: result?.nanoid

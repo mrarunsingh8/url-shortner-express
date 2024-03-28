@@ -21,7 +21,7 @@ const UrlModel = sequelize.define("url", {
         unique: true,
         fields: ["nanoid"]
     }],
-    createdAt: true,
+    createdAt: false,
     paranoid: true
 });
 
