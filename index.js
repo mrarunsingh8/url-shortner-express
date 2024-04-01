@@ -1,5 +1,5 @@
 import express from "express";
-import RouteConfig from "./config/routeConfig.js";
+import RouteConfig from "./config/RouteConfig.js";
 import sequelize from "./config/sequelize.js";
 import bodyParser from "body-parser";
 
@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(RouteConfig);
 
 app.listen(3000, ()=>{
-    console.log(`Server is started on port: 3000`);
+    console.log(`Server is started on port: 3001`);
     sequelize.authenticate().then(()=>{
         console.log(`DB connected.`);
     });

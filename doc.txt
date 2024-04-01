@@ -1,0 +1,22 @@
+docker build --no-cache -t url-shortner .
+
+docker images
+
+docker tag url-shortner:latest url-shortner:v1.0.0
+
+docker rmi url-shortner:v1.0.0
+
+docker run url-shortner
+
+docker run --publish 3000:3000 url-shortner
+
+docker run -d --publish 3000:3000 url-shortner
+
+docker ps
+----------------------------------
+docker build --tag url-shortner . && docker run url-shortner
+
+docker exec -it 72c03e499507e9258def20544b6aaab71037cb0e83be2adb5ba67a9430928718 sh
+
+
+docker-compose up --build

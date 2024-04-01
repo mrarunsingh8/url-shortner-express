@@ -1,0 +1,10 @@
+FROM mysql:8
+
+WORKDIR /app/mysql
+
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=url-shortner
+ENV MYSQL_USER=shortner
+ENV MYSQL_PASSWORD=shortnerpwd
+
+EXPOSE 3306
