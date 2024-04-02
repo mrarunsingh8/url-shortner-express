@@ -2,12 +2,8 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/sequelize.js";
 
 const UrlModel = sequelize.define("url", {
-    id: {
-        primaryKey: true,
-        autoIncrement: true,
-        type: DataTypes.BIGINT
-    },
     nanoid: {
+        primaryKey: true,
         type: DataTypes.STRING(25),
         allowNull: false,
     },

@@ -23,7 +23,7 @@ UrlController.get("/:nanoid", (req, res)=>{
     });
 });
 
-UrlController.post("/", async(req, res)=>{
+UrlController.put("/", async(req, res)=>{
     let {url} = req?.body;
     let checkExisting = await UrlModel.findOne({where: {url: url}});
     if(checkExisting){
