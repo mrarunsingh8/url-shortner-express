@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:18
 
 WORKDIR /app/src
 
@@ -8,9 +8,7 @@ COPY . .
 
 RUN npm ci
 
-RUN npm install pm2 -g
-
 EXPOSE 3000
 
-CMD ["pm2-runtime", "start", "index.js"]
-#CMD [ "node", "--experimental-modules", "index.js"]
+CMD [ "npm", "run", "start"]
+#CMD [ "npm", "start" ]

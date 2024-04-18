@@ -1,0 +1,16 @@
+FROM mysql:8
+
+WORKDIR /app/mysql
+
+# Copy the SQL script into the container
+COPY /dockerspec/privileges.sql /docker-entrypoint-initdb.d/
+
+# Grant privileges for the shortner user
+RUN chown -R mysql:mysql /docker-entrypoint-initdb.d/privileges.sql
+
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=url-shortner
+ENV MYSQL_USER=shortner
+ENV MYSQL_PASSWORD=shortner
+
+EXPOSE 3307

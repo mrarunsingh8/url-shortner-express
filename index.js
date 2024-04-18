@@ -11,8 +11,8 @@ app.use(bodyParser.json());
 
 app.use(RouteConfig);
 
-app.listen(3000, ()=>{
-    console.log(`Server is started on port: 3001`);
+app.listen(process.env.SERVER_PORT, ()=>{
+    console.log(`Server is started on port: ${process.env.SERVER_PORT}`);
     sequelize.authenticate().then(()=>{
         console.log(`DB connected.`);
     });

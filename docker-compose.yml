@@ -1,31 +1,45 @@
-version: '3'
+version: "3.9"
 services:
-  mysql:
+  mysqldb:
+    image: mysql:8
+    restart: unless-stopped
+    command: mysqld --default-authentication-plugin=caching_sha2_password
+    environment:
+      MYSQL_ROOT_PASSWORD: 'roots'
+      MYSQL_DATABASE: 'short'
+      MYSQL_USER: 'short'
+      MYSQL_PASSWORD: 'short'
+      SERVICE_NAME: 'mysqldb'
+    ports:
+      - 3307:3306
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-db-network
+  app:
     build:
       context: .
-      dockerfile: Dockerfile.mysql
-    restart: unless-stopped
-    ports:
-      - "3307:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-  
-  nodeapp:
-    build: .
+      dockerfile: ./Dockerfile
+    image: url-shortner-express
     restart: always
     ports:
-      - "3000:3000"
-    depends_on:
-      - mysql
-    volumes:
-      - webdata:/var/lib/web
+      - 3000:3000
     environment:
-      - NODE_ENV=production
-      - DB_HOST=mysql
-      - DB_NAME=url-shortner
-      - DB_USER=shortner
-      - DB_PASSWORD=shortnerpwd
-
+      SERVER_PORT: 3000
+      DB_HOST: mysqldb
+      DB_PORT: 3306
+      DB_NAME: 'short'
+      DB_USER: 'short'
+      DB_PASSWORD: 'short'
+    stdin_open: true
+    tty: true
+    depends_on:
+      - mysqldb
+    networks:
+      - app-db-network
 volumes:
-  mysql_data:
-  webdata:
+  db-data:
+
+networks:
+  app-db-network:
+    driver: bridge

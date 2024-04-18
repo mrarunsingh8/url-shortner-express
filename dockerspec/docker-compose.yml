@@ -1,0 +1,41 @@
+version: '3'
+services:
+
+  database_mysql:
+    build:
+      context: .
+      dockerfile: /dockerspec/Dockerfile.mysql
+    restart: unless-stopped
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_db:/var/lib/mysql
+    networks:
+      - app_network
+  
+  webapp:
+    build: .
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database_mysql
+    volumes:
+      - webdata:/var/lib/web
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=database_mysql
+      - DB_PORT=3307
+      - DB_NAME=url-shortner
+      - DB_USER=root
+      - DB_PASSWORD=root
+    networks:
+      - app_network
+
+volumes:
+  mysql_db:
+  webdata:
+
+networks:
+  app_network:
+    driver: bridge

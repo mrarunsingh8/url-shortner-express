@@ -1,22 +1,89 @@
-docker build --no-cache -t url-shortner .
+docker build --no-cache -t mrarunsingh8/url-shortner-express .
 
 docker images
 
-docker tag url-shortner:latest url-shortner:v1.0.0
+docker tag mrarunsingh8/url-shortner-express:latest mrarunsingh8/url-shortner-express:v1.0.0
 
-docker rmi url-shortner:v1.0.0
+docker rmi mrarunsingh8/url-shortner-express:v1.0.0
 
-docker run url-shortner
+docker run mrarunsingh8/url-shortner-express
 
-docker run --publish 3000:3000 url-shortner
+docker run --publish 3000:3000 mrarunsingh8/url-shortner-express
 
-docker run -d --publish 3000:3000 url-shortner
+docker run -d --publish 3000:3000 mrarunsingh8/url-shortner-express
 
 docker ps
 ----------------------------------
-docker build --tag url-shortner . && docker run url-shortner
+docker build --tag mrarunsingh8/url-shortner-express . && docker run mrarunsingh8/url-shortner-express
 
 docker exec -it 72c03e499507e9258def20544b6aaab71037cb0e83be2adb5ba67a9430928718 sh
 
 
 docker-compose up --build
+
+docker-compose build
+==========================================================================
+docker latest mysql:latest mrarunsingh8/url-shortner-express:latest
+
+docker compose push mrarunsingh8/url-shortner-express:latest
+
+#docker build -t mrarunsingh8/url-shortner-express .
+#docker push mrarunsingh8/url-shortner-express:latest
+
+docker tag mysql:latest mrarunsingh8/mysql:latest
+
+docker exec -it url-shortner-express-database_mysql-1 mysql -u root -proot
+docker exec -it url-shortner-express-database_mysql-1 mysql -h=database_mysql -u shortner -pshortner
+
+docker exec -it url-shortner-express-mysqldb-1 mysql -h mysqldb -u short -pshort
+
+mysql --host=database_mysql --user=shortner --password shortner
+mysql -h mysqldb -u short -pshort
+
+
+    
+
+database_mysql:
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    restart: unless-stopped
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_db:/var/lib/mysql
+    #networks:
+    #  - database_net
+  
+
+
+
+
+
+
+
+
+
+version: '3'
+services:
+  database_mysql:
+    image: mysql:8
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'url-shortner'
+      MYSQL_USER: 'shortner'
+      MYSQL_PASSWORD: 'shortnerpwd'
+    ports:
+      # <Port exposed> : <MySQL Port running inside container>
+      - '3307:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3307'
+      # Where our data will be persisted
+    volumes:
+      - mysql_db:/var/lib/mysql
+# Names our volume
+volumes:
+  mysql_db:
+    driver:local
