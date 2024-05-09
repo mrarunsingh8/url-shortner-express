@@ -1,3 +1,5 @@
+docker-compose build mysqldb app
+--------------------------------------------------------------
 docker build --no-cache -t mrarunsingh8/url-shortner-express .
 
 docker images
@@ -29,6 +31,7 @@ docker compose push mrarunsingh8/url-shortner-express:latest
 
 #docker build -t mrarunsingh8/url-shortner-express .
 #docker push mrarunsingh8/url-shortner-express:latest
+docker run -d -p 8080:80 mrarunsingh8/url-shortner-express:latest
 
 docker tag mysql:latest mrarunsingh8/mysql:latest
 

@@ -20,7 +20,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    image: url-shortner-express
+    image: mrarunsingh8/url-shortner-express:latest
     restart: always
     ports:
       - 3000:3000
