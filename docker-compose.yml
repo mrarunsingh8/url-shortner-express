@@ -3,7 +3,6 @@ services:
   mysqldb:
     image: mysql:8
     restart: unless-stopped
-    command: mysqld --default-authentication-plugin=caching_sha2_password
     environment:
       MYSQL_ROOT_PASSWORD: 'roots'
       MYSQL_DATABASE: 'short'
