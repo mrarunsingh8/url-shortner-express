@@ -10,5 +10,9 @@ RUN npm ci
 
 EXPOSE 3000
 
-CMD [ "npm", "run", "start"]
+RUN npm install pm2 -g
+
+CMD ["pm2-runtime", "index.js"]
+
+#CMD [ "npm", "run", "start"]
 #CMD [ "npm", "start" ]
