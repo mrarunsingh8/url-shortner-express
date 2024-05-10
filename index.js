@@ -1,5 +1,5 @@
 import express from "express";
-import RouteConfig from "./config/RouteConfig.js";
+import routeConfig from "./config/routeConfig.js";
 import sequelize from "./config/sequelize.js";
 import bodyParser from "body-parser";
 
@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(bodyParser.json());
 
-app.use(RouteConfig);
+app.use(routeConfig);
 
 app.listen(process.env.SERVER_PORT, ()=>{
     console.log(`Server is started on port: ${process.env.SERVER_PORT}`);

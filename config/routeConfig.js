@@ -1,16 +1,16 @@
 import express from "express";
 import UrlController from "../controllers/UrlController.js";
 
-const RouteConfig = express.Router();
+const routeConfig = express.Router();
 
-RouteConfig.use("/urls", UrlController);
+routeConfig.use("/urls", UrlController);
 
 
-RouteConfig.use((req, res)=>{
+routeConfig.use((req, res)=>{
     res.status(404).json({
         message: "Route not found",
         error: new Error("Route not found")
     });
 });
 
-export default RouteConfig;
+export default routeConfig;
